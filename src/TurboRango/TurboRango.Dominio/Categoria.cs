@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TurboRango.Dominio
+﻿namespace TurboRango.Dominio
 {
-    internal enum Categoria
+    public enum Categoria //  - POCO - PLAIN OLD C OBJECT 
     {
         Comum, CozinhaNatural, CozinhaMexicana, Churrasqueira, CozinhaJaponesa, FastFood, Pizzaria
     };

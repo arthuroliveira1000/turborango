@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TurboRango.Dominio
+﻿namespace TurboRango.Dominio
 {
-    internal class Localizacao
+    public class Localizacao
     {
-        private String bairro { get; set; }
-        private String logradouro { get; set; }
-        private Double latitude { get; set; }
-        private Double longitude { get; set; }
+        public string Bairro { get; set; }
+        public string Logradouro { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TurboRango.Dominio
+﻿namespace TurboRango.Dominio
 {
-    internal class Contato
+    public class Contato
     {
-        private String site { get; set; }
-        private String telefone { get; set; }
+        public string Site { get; set; }
+        public string Telefone { get; set; }
     }
 }
