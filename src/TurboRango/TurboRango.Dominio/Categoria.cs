@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TurboRango.Dominio
 {
-    enum Categoria
+    internal enum Categoria
     {
-        Comum,CozinhaNatural, CozinhaMexicana, Churrasqueira, CozinhaJaponesa, FastFood, Pizzaria
+        Comum, CozinhaNatural, CozinhaMexicana, Churrasqueira, CozinhaJaponesa, FastFood, Pizzaria
     };
 }
