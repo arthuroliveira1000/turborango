@@ -67,7 +67,7 @@ namespace TurboRango.ImportadorXML
             return mad.Max();
         }
 
-        #region **************************************EXERCÍCIOS
+        #region **************************************EXERCÍCIOS-1
 
         //1A
         public IList<string> OrdenarPorNomeAsc()
@@ -79,17 +79,20 @@ namespace TurboRango.ImportadorXML
             return res.ToList();
         }
 
-        //1B - arrumar
+        //1B
         public IList<string> ObterSites()
         {
-            var restaurantesQuePossuemSite = from restaurante in restaurantes
-                                             where restaurante.Attribute("site") != null
-                                             select restaurante;
-
-            var sites = from restaurante in restaurantesQuePossuemSite
-                        select restaurante.Attribute("site").Value;
-
-            return sites.ToList();
+            return restaurantes
+                .Where(n => n.Element("contato") != null && n.Element("contato").Element("site") != null && !String.IsNullOrEmpty(n.Element("contato").Value))
+                .Select(n => n.Element("contato").Element("site").Value)
+              .ToList();
+            //return (
+            //  from n in restaurantes
+            //let contato = n.Element("contato")
+            //let site = contato != null ? contato.Element("site") : null
+            //where site != null && !String.IsNullOrEmpty(site.Value)
+            //select contato.Element("site").Value
+            //).ToList();
         }
 
         // 1C 
@@ -100,21 +103,58 @@ namespace TurboRango.ImportadorXML
                 select Convert.ToInt32(n.Attribute("capacidade").Value)
             ).Average();
         }
-        #endregion
-    }
+
         //1D - arrumar
-    public object AgruparPorCategoria() {
-      var res = from n in restaurantes
-                      group n by n.Attribute("categoria").Value into g
-                      select new
-                      {
-                          Categoria = g.Key,
-                          Restaurantes = g.ToList(),
-                          SomatorioCapacidades = g.Sum(x => Convert.ToInt32(x.Attribute("capacidade").Value))
-                      };
+        /*
+        public object AgruparPorCategoria() {
+          var res = from n in restaurantes
+                          group n by n.Attribute("categoria").Value into g
+                          select new
+                          {
+                              Categoria = g.Key,
+                              Restaurantes = g.ToList(),
+                              SomatorioCapacidades = g.Sum(x => Convert.ToInt32(x.Attribute("capacidade").Value))
+                          };
 
 
-            return res.ToList();
+                return res.ToList();
+         */
+        #endregion
+
+
+        #region ****************EXERCÍCIOS-2
+
+        public IEnumerable<Restaurante> TodosRestaurantes()
+        {
+            return (
+                from n in restaurantes
+                let contato = n.Element("contato")
+                let site = contato != null && contato.Element("site") != null ? contato.Element("site").Value : null
+                let telefone = contato != null && contato.Element("telefone") != null ? contato.Element("telefone").Value : null
+                let localizacao = n.Element("localizacao")
+                select new Restaurante
+                {
+                    Nome = n.Attribute("nome").Value,
+                    Capacidade = Convert.ToInt32(n.Attribute("capacidade").Value),
+                    Categoria = (Categoria)Enum.Parse(typeof(Categoria), n.Attribute("categoria").Value, ignoreCase: true),
+                    Contato = new Contato
+                    {
+                        Site = site,
+                        Telefone = telefone
+                    },
+                    Localizacao = new Localizacao
+                    {
+                        Bairro = localizacao.Element("bairro").Value,
+                        Logradouro = localizacao.Element("logradouro").Value,
+                        Latitude = Convert.ToDouble(localizacao.Element("latitude").Value),
+                        Longitude = Convert.ToDouble(localizacao.Element("longitude").Value)
+                    }
+                }
+            );
+        }
+
+        #endregion
+
     }
-
 }
+

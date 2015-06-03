@@ -11,6 +11,9 @@ namespace TurboRango.ImportadorXML
     {
         static void Main(string[] args)
         {
+            const string nomeArquivo = "restaurantes.xml";
+            var restaurantesXML = new RestaurantesXML(nomeArquivo);
+
             #region Exemplos
 
             Restaurante restaurante = new Restaurante();
@@ -48,21 +51,36 @@ namespace TurboRango.ImportadorXML
 
             #endregion
 
-            const string nomeArquivo = "restaurantes.xml";
-
-            var restaurantesXML = new RestaurantesXML(nomeArquivo);
+            #region **********************EXERCÍCIOS
             var nomes = restaurantesXML.ObterNomes();
             var capacidadeMedia = restaurantesXML.CapacidadeMedia();
             var capacidadeMaxima = restaurantesXML.CapacidadeMaxima();
             //var porCategoria = restaurantesXML.AgruparPorCategoria();
-
-            #region **********************EXERCÍCIOS
+            //var ex1f = restaurantesXML.ApenasMaisPopulares(); var ex1f = restaurantesXML.ApenasMaisPopulares();
+            //var ex1g = restaurantesXML.BairrosComMenosPizzarias(); var ex1g = restaurantesXML.BairrosComMenosPizzarias();
+            //var ex1h = restaurantesXML.AgrupadosPorBairroPercentual(); var ex1h = restaurantesXML.AgrupadosPorBairroPercentual();
+            var todos = restaurantesXML.TodosRestaurantes();
+           
+           
 
             var ordenaPorNomeAsc = restaurantesXML.OrdenarPorNomeAsc();
-            // var sitesDeRestaurantes = restaurantesXML.ObterSites();
+            var sitesDeRestaurantes = restaurantesXML.ObterSites();
             #endregion
-            
+
+            #region ADO.NET
+
+            var connString = @"Data Source=.; Initial Catalog=TurboRango_dev; UID=sa;PWD=feevale"; //Integrated-Security:true
+
+            var acessoAoBanco = new CarinhaQueManinulaOBanco(connString);
+
+            acessoAoBanco.Inserir(new Contato { Site = "www.dogao.com", Telefone = "555555"}); 
+
+            #endregion
+
+
+            IEnumerable<Contato> contatos = acessoAoBanco.GetContatos();
 
         }
     }
 }
+
