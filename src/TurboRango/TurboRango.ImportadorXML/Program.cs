@@ -11,16 +11,40 @@ namespace TurboRango.ImportadorXML
     {
         static void Main(string[] args)
         {
-            #region exemplos
-            Restaurante restaurante = null;
-            //onsole.WriteLine(restaurante.Nome ?? "Nulo!!!");
-            /*
+            #region Exemplos
 
-            Console.WriteLine(!string.IsNullOrEmpty(restaurante.Nome) ? "tem valor" : "não tem valor");
-             * var texto = string.format
-             * string.format("Eu gosto de {0}", oQueEuGosto);
-             */
+            Restaurante restaurante = new Restaurante();
 
+            //restaurante.
+            //Console.Write(restaurante.Contato.Site);
+            Console.WriteLine(
+                restaurante.Capacidade.HasValue ?
+                    restaurante.Capacidade.Value.ToString() :
+                    "oi"
+                );
+
+            restaurante.Nome = string.Empty + " ";
+
+            Console.WriteLine(restaurante.Nome ?? "Nulo!!!");
+
+            Console.WriteLine(!string.IsNullOrEmpty(restaurante.Nome.Trim()) ? "tem valor" : "não tem valor");
+
+            var oQueEuGosto = "bacon";
+
+            var texto = String.Format("Eu gosto de {0}", oQueEuGosto);
+            // var texto = String.Format("Eu gosto de \{oQueEuGosto}");
+
+            StringBuilder pedreiro = new StringBuilder();
+            pedreiro.AppendFormat("Eu gosto de {0}", oQueEuGosto);
+            pedreiro.Append("!!!!!!");
+
+            object obj = "1";
+            int a = Convert.ToInt32(obj);
+            int convertido = 10;
+            bool conseguiu = Int32.TryParse("1gdfgfd", out convertido);
+            int res = 12 + a;
+
+            Console.WriteLine(pedreiro);
 
             #endregion
 
@@ -28,9 +52,16 @@ namespace TurboRango.ImportadorXML
 
             var restaurantesXML = new RestaurantesXML(nomeArquivo);
             var nomes = restaurantesXML.ObterNomes();
+            var capacidadeMedia = restaurantesXML.CapacidadeMedia();
+            var capacidadeMaxima = restaurantesXML.CapacidadeMaxima();
+            //var porCategoria = restaurantesXML.AgruparPorCategoria();
 
-            //var capacidadeMedia = restaurantesXML.CapacidadeMedia();
-            //var capacidadeMaxima = restaurantesXML.CapacidadeMaxima();
+            #region **********************EXERCÍCIOS
+
+            var ordenaPorNomeAsc = restaurantesXML.OrdenarPorNomeAsc();
+            // var sitesDeRestaurantes = restaurantesXML.ObterSites();
+            #endregion
+            
 
         }
     }

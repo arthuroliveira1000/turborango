@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using TurboRango.Dominio;
 
 namespace TurboRango.ImportadorXML
 {
@@ -11,22 +13,23 @@ namespace TurboRango.ImportadorXML
     {
         public string NomeArquivo { get; private set; }
         IEnumerable<XElement> restaurantes;
-        /// <summary>
-        /// Constrói RestauranteXML a partir de um nome de arquivo.
-        /// </summary>
-        /// <param name="nomeArquivo">Nome do arquivo a ser manipulado</param>
 
-        public RestaurantesXML(String nomeArquivo) //ATALHO -- CTOR + TAB + TAB -> CRIA CONSTRUTOR
+        /// <summary>
+        /// Constrói RestaurantesXML a partir de um nome de arquivo.
+        /// </summary>
+        /// <param name="nomeArquivo">Nome do arquivo XML a ser manipulado</param>
+        public RestaurantesXML(string nomeArquivo)
         {
-            this.NomeArquivo = NomeArquivo;
+            NomeArquivo = nomeArquivo;
             restaurantes = XDocument.Load(NomeArquivo).Descendants("restaurante");
         }
 
         public IList<string> ObterNomes()
         {
-            #region outrasManeirasDeObterNomes
+            #region outrasFormasDeObterONome
             //var resultado = new List<string>();
-            //var nodos = XDocument.Load(NomeArquivo).Descendants("restaurante");
+
+            //var nodos = restaurantes;
 
             //foreach (var item in nodos)
             //{
@@ -35,26 +38,83 @@ namespace TurboRango.ImportadorXML
 
             //return resultado;
 
-            //return (from n in XDocument.Load(NomeArquivo).Descendants("restaurante")
-            //         orderby n.Attribute("nome").Value
-            //        select n.Attribute("nome").Value).ToList();
+            /*var res = restaurantes
+                .Select(n => new Restaurante
+                {
+                    Nome = n.Attribute("nome").Value,
+                    Capacidade = Convert.ToInt32(n.Attribute("capacidade").Value)
+                });
+
+            return res.Where(x => x.Capacidade < 100).Select(x => x.Nome).OrderBy(x => x).ToList();
+            */
+
             #endregion
-
-            return (from n in XDocument.Load(NomeArquivo).Descendants("restaurante") orderby n.Attribute("nome").Value where Convert.ToInt32(n.Attribute("capacidade").Value) < 100 );
-            return XDocument.Load(NomeArquivo).Descendants("restaurante").Select(_ => _.Attribute("nome").Value).ToList();
-        }
-
-        public double CapacidadeMedia()
-        {
-            return (from n in restaurantes select Convert.ToInt32(n.Attribute("capacidade").Value)).Average();
+            return (
+                from n in restaurantes
+                orderby n.Attribute("nome").Value descending
+                where Convert.ToInt32(n.Attribute("capacidade").Value) < 100
+                select n.Attribute("nome").Value
+            ).ToList();
         }
 
         public double CapacidadeMaxima()
         {
-            var consulta = (from n in restaurantes select Convert.ToInt32(n.Attribute("capacidade").Value));
-            return consulta.Max();
+            var mad = (
+                from n in restaurantes
+                select Convert.ToInt32(n.Attribute("capacidade").Value)
+            );
+
+            return mad.Max();
         }
 
+        #region **************************************EXERCÍCIOS
 
+        //1A
+        public IList<string> OrdenarPorNomeAsc()
+        {
+            var res = from n in restaurantes
+                      orderby n.Attribute("nome").Value
+                      select n.Attribute("nome").Value; // por padrão já seleciona em ordem crescente
+
+            return res.ToList();
+        }
+
+        //1B - arrumar
+        public IList<string> ObterSites()
+        {
+            var restaurantesQuePossuemSite = from restaurante in restaurantes
+                                             where restaurante.Attribute("site") != null
+                                             select restaurante;
+
+            var sites = from restaurante in restaurantesQuePossuemSite
+                        select restaurante.Attribute("site").Value;
+
+            return sites.ToList();
+        }
+
+        // 1C 
+        public double CapacidadeMedia()
+        {
+            return (
+                from n in restaurantes
+                select Convert.ToInt32(n.Attribute("capacidade").Value)
+            ).Average();
+        }
+        #endregion
     }
+        //1D - arrumar
+    public object AgruparPorCategoria() {
+      var res = from n in restaurantes
+                      group n by n.Attribute("categoria").Value into g
+                      select new
+                      {
+                          Categoria = g.Key,
+                          Restaurantes = g.ToList(),
+                          SomatorioCapacidades = g.Sum(x => Convert.ToInt32(x.Attribute("capacidade").Value))
+                      };
+
+
+            return res.ToList();
+    }
+
 }

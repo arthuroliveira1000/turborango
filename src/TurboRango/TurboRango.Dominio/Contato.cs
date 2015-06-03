@@ -2,7 +2,7 @@
 {
     public class Contato
     {
-        public string Site { get; set; }
+        public string Site { get; internal set; }
         public string Telefone { get; set; }
     }
 }
