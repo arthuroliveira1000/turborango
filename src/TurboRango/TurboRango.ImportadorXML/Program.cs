@@ -52,14 +52,15 @@ namespace TurboRango.ImportadorXML
             #endregion
 
             #region **********************EXERCÍCIOS
+           
             var nomes = restaurantesXML.ObterNomes();
             var capacidadeMedia = restaurantesXML.CapacidadeMedia();
             var capacidadeMaxima = restaurantesXML.CapacidadeMaxima();
-            //var porCategoria = restaurantesXML.AgruparPorCategoria();
-            //var ex1f = restaurantesXML.ApenasMaisPopulares(); var ex1f = restaurantesXML.ApenasMaisPopulares();
-            //var ex1g = restaurantesXML.BairrosComMenosPizzarias(); var ex1g = restaurantesXML.BairrosComMenosPizzarias();
-            //var ex1h = restaurantesXML.AgrupadosPorBairroPercentual(); var ex1h = restaurantesXML.AgrupadosPorBairroPercentual();
-            var todos = restaurantesXML.TodosRestaurantes();
+            var restaurantesporCategoria = restaurantesXML.AgruparPorCategoria();
+            var categoriaDeRestaurantesPopulares = restaurantesXML.ApenasMaisPopulares(); 
+            var bairrosComMenosPizzarias = restaurantesXML.BairrosComMenosPizzarias(); 
+            var restaurantesAgrupadosPorBairroPercentual = restaurantesXML.AgrupadosPorBairroPercentual(); 
+            var todosRestaurantes = restaurantesXML.TodosRestaurantes();
            
            
 
@@ -69,17 +70,18 @@ namespace TurboRango.ImportadorXML
 
             #region ADO.NET
 
-            var connString = @"Data Source=.; Initial Catalog=TurboRango_dev; UID=sa;PWD=feevale"; //Integrated-Security:true
+            //var connString = @"Data Source=.; Initial Catalog=TurboRango_dev; UID=sa;PWD=feevale"; //Integrated-Security:true
 
-            var acessoAoBanco = new CarinhaQueManinulaOBanco(connString);
+            //var acessoAoBanco = new CarinhaQueManinulaOBanco(connString);
 
-            acessoAoBanco.Inserir(new Contato { Site = "www.dogao.com", Telefone = "555555"}); 
+            //acessoAoBanco.Inserir(new Contato { Site = "www.dogao.com", Telefone = "555555"}); 
 
             #endregion
 
+           //IEnumerable<Contato> contatos = acessoAoBanco.GetContatos();
 
-            IEnumerable<Contato> contatos = acessoAoBanco.GetContatos();
-
+            var connString = @"Data Source=.\SQLEXPRESS2014; Initial Catalog=TurboRango_dev; Integrated Security=True;";
+            var restaurantes = new Restaurantes(connString);
         }
     }
 }
