@@ -79,7 +79,7 @@ namespace TurboRango.ImportadorXML
             #endregion
 
 
-            //EXERCÍCIO 1
+            #region EXERCÍCIO 1
             var connString = @"Data Source=.\SQLEXPRESS2014;Initial Catalog=TurboRango_dev;Integrated Security=True;";
             var restaurantes = new Restaurantes(connString);
 
@@ -103,9 +103,16 @@ namespace TurboRango.ImportadorXML
                 }
             });
 
-            //EXERCÍCIO 2 
+            #endregion
 
+            #region EXERCÍCIO 2
 
+            foreach (Restaurante umRestaurante in restaurantesXML.TodosRestaurantes())
+            {
+                restaurantes.Inserir(umRestaurante);
+            }
+
+            #endregion
 
         }
     }

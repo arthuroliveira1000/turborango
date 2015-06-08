@@ -6,6 +6,11 @@ namespace TurboRango.ImportadorXML
 {
     class Restaurantes
     {
+
+        readonly static string DELETE_SQL = "DELETE [dbo].[Restaurante] WHERE [ID_Restaurante] = @Id";
+        readonly static string SELECT_FKS = "SELECT [ID_Contato], [ID_Localizacao] FROM [dbo].[Restaurante] (nolock) WHERE [ID_Localizacao] = @Id";
+
+
         private string connectionString { get; set; }
 
         public Restaurantes(string connectionString)
@@ -27,15 +32,19 @@ namespace TurboRango.ImportadorXML
                     inserirRestaurante.Parameters.Add("@LocalizacaoId", SqlDbType.Int).Value = InserirLocalizacao(restaurante.Localizacao);
 
                     connection.Open();
+
+                    int resultado = inserirRestaurante.ExecuteNonQuery();
                 }
             }
         }
 
-        private object InserirLocalizacao(Localizacao localizacao)
+        private int InserirLocalizacao(Localizacao localizacao)
         {
+
+            int idCriado;
             using (var connection = new SqlConnection(this.connectionString))
             {
-                string comandoSQL = "INSERT INTO [dbo].[Localizacao] ([Bairro], [Logradouro], [Latitude], [Longitude]) VALUES (@Bairro, @Logradouro, @Latitude, @Longitude)";
+                string comandoSQL = "INSERT INTO [dbo].[Localizacao] ([Bairro], [Logradouro], [Latitude], [Longitude]) output INSERTED.ID_Localizacao VALUES (@Bairro, @Logradouro, @Latitude, @Longitude)";
                 using (var inseriLocalizacao = new SqlCommand(comandoSQL, connection))
                 {
                     inseriLocalizacao.Parameters.Add("@Bairro", SqlDbType.NVarChar).Value = localizacao.Bairro;
@@ -44,27 +53,31 @@ namespace TurboRango.ImportadorXML
                     inseriLocalizacao.Parameters.Add("@Longitude", SqlDbType.Float).Value = localizacao.Longitude;
 
                     connection.Open();
-                    int idCriado = Convert.ToInt32(inseriLocalizacao.ExecuteScalar());
-                    return idCriado;
+                    idCriado = Convert.ToInt32(inseriLocalizacao.ExecuteScalar());
+
                 }
+                return idCriado;
             }
         }
 
         private int InserirContato(Contato contato)
         {
+            int idCriado;
             using (var connection = new SqlConnection(this.connectionString))
             {
-                string comandoSQL = "INSERT INTO [dbo].[Contato] ([Site], [Telefone]) VALUES (@Site, @Telefone)";
+                string comandoSQL = "INSERT INTO [dbo].[Contato] ([Site], [Telefone]) output INSERTED.ID_Contato VALUES (@Site, @Telefone)";
                 using (var inseriContato = new SqlCommand(comandoSQL, connection))
                 {
-                    inseriContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = contato.Site;
-                    inseriContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = contato.Telefone;
+                    inseriContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = contato.Site ?? (object)DBNull.Value;
+                    inseriContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = contato.Telefone ?? (object)DBNull.Value;
 
                     connection.Open();
-                    int idCriado = Convert.ToInt32(inseriContato.ExecuteScalar());
-                    return idCriado;
+                    idCriado = Convert.ToInt32(inseriContato.ExecuteScalar());
+
                 }
+                return idCriado;
             }
         }
+
     }
 }
