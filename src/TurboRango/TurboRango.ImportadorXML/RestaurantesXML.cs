@@ -67,62 +67,100 @@ namespace TurboRango.ImportadorXML
             return mad.Max();
         }
 
-        #region **************************************EXERCÍCIOS-1
-
+        #region **************************************EXERCÍCIOS-LINQ-LANGUAGE INTEGRATED QUERY
+        
         //1A
         public IList<string> OrdenarPorNomeAsc()
         {
-            var res = from n in restaurantes
-                      orderby n.Attribute("nome").Value
-                      select n.Attribute("nome").Value; // por padrão já seleciona em ordem crescente
-
-            return res.ToList();
+            return (from restaurante in restaurantes
+                    orderby restaurante.Attribute("nome").Value
+                    select restaurante.Attribute("nome").Value
+            ).ToList();
         }
 
         //1B
         public IList<string> ObterSites()
         {
-            return restaurantes
-                .Where(n => n.Element("contato") != null && n.Element("contato").Element("site") != null && !String.IsNullOrEmpty(n.Element("contato").Value))
-                .Select(n => n.Element("contato").Element("site").Value)
-              .ToList();
-            //return (
-            //  from n in restaurantes
-            //let contato = n.Element("contato")
-            //let site = contato != null ? contato.Element("site") : null
-            //where site != null && !String.IsNullOrEmpty(site.Value)
-            //select contato.Element("site").Value
-            //).ToList();
+            return (
+              from restaurante in restaurantes
+              let contato = restaurante.Element("contato")
+              let site = contato != null ? contato.Element("site") : null
+              where site != null && !String.IsNullOrEmpty(site.Value)
+              select contato.Element("site").Value
+            ).ToList();
         }
 
         // 1C 
         public double CapacidadeMedia()
         {
             return (
-                from n in restaurantes
-                select Convert.ToInt32(n.Attribute("capacidade").Value)
+                from restaurante in restaurantes
+                select Convert.ToInt32(restaurante.Attribute("capacidade").Value)
             ).Average();
         }
 
-        //1D - arrumar
-        /*
-        public object AgruparPorCategoria() {
-          var res = from n in restaurantes
-                          group n by n.Attribute("categoria").Value into g
-                          select new
-                          {
-                              Categoria = g.Key,
-                              Restaurantes = g.ToList(),
-                              SomatorioCapacidades = g.Sum(x => Convert.ToInt32(x.Attribute("capacidade").Value))
-                          };
+        //1D
+        public object AgruparPorCategoria()
+        {
+            return (from restaurante in restaurantes
+                    group restaurante by restaurante.Attribute("categoria").Value into g
+                    select new
+                    {
+                        Categoria = g.Key,
+                        Restaurantes = g.ToList()
+                    }).ToList();
+        }
 
+        //1E
+        public IList<Categoria> ApenasComUmRestaurante()
+        {
+            return (from restaurante in restaurantes
+                    group restaurante by restaurante.Attribute("categoria").Value into g
+                    where g.Count() == 1
+                    select
+                    (Categoria)Enum.Parse(typeof(Categoria), g.Key, ignoreCase: true)
+                    ).ToList();
+        }
+        //1F
+        public IList<Categoria> ApenasMaisPopulares()
+        {
+            return (from restaurante in restaurantes
+                    group restaurante by restaurante.Attribute("categoria").Value into g
+                    let contRestaurantePorCategoria = g.Count()
+                    orderby contRestaurantePorCategoria descending
+                    where contRestaurantePorCategoria > 2
+                    select
+                    (Categoria)Enum.Parse(typeof(Categoria), g.Key, ignoreCase: true)
+                    ).Take(2).ToList();
+        }
 
-                return res.ToList();
-         */
+        //1G
+        public IList<string> BairrosComMenosPizzarias()
+        {
+            return (
+                 from n in restaurantes
+                 let cat = (Categoria)Enum.Parse(typeof(Categoria), n.Attribute("categoria").Value, ignoreCase: true)
+                 where cat == Categoria.Pizzaria
+                 group n by n.Element("localizacao").Element("bairro").Value into g
+                 orderby g.Count()
+                 select g.Key
+                 ).Take(8).ToList();		                 
+        }
+
+        //1H
+        public object AgrupadosPorBairroPercentual()
+        {
+            return (
+                 from n in restaurantes
+                 group n by n.Element("localizacao").Element("bairro").Value into g
+                 let totalRestaurantes = restaurantes.Count()
+                 select new { Bairro = g.Key, Percentual = Math.Round(Convert.ToDouble(g.Count() * 100) / totalRestaurantes, 2) }
+             ).OrderByDescending(g => g.Percentual);
+        }
+        
         #endregion
 
-
-        #region ****************EXERCÍCIOS-2
+        #region ****************EXERCÍCIO - TODOS OS RESTAURANTES
 
         public IEnumerable<Restaurante> TodosRestaurantes()
         {
@@ -155,6 +193,8 @@ namespace TurboRango.ImportadorXML
 
         #endregion
 
+
+       
     }
 }
 
