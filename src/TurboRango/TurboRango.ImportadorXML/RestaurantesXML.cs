@@ -70,6 +70,7 @@ namespace TurboRango.ImportadorXML
         #region **************************************EXERCÍCIOS-LINQ-LANGUAGE INTEGRATED QUERY
         
         //1A
+        
         public IList<string> OrdenarPorNomeAsc()
         {
             return (from restaurante in restaurantes
@@ -190,7 +191,7 @@ namespace TurboRango.ImportadorXML
                 }
             );
         }
-
+        
         #endregion
 
 

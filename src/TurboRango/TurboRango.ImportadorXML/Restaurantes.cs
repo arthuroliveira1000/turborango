@@ -17,17 +17,16 @@ namespace TurboRango.ImportadorXML
         {
             using (var connection = new SqlConnection(this.connectionString))
             {
-                string comandoSQL = "INSERT INTO [dbo].[Restaurante] ([Capacidade], [Nome], [Categoria], [ContatoId], [LocalizacaoId]) VALUES (@Capacidade, @Nome, @Categoria, @ContatoId, @LocalizacaoId)";
+                string comandoSQL = "INSERT INTO [dbo].[Restaurante] ([Nome], [Capacidade], [Categoria], [ID_Contato], [ID_Localizacao]) VALUES (@Nome, @Capacidade, @Categoria, @ContatoId, @LocalizacaoId)";
                 using (var inserirRestaurante = new SqlCommand(comandoSQL, connection))
                 {
-                    inserirRestaurante.Parameters.Add("@Capacidade", SqlDbType.NVarChar).Value = restaurante.Capacidade;
                     inserirRestaurante.Parameters.Add("@Nome", SqlDbType.NVarChar).Value = restaurante.Nome;
+                    inserirRestaurante.Parameters.Add("@Capacidade", SqlDbType.NVarChar).Value = restaurante.Capacidade;
                     inserirRestaurante.Parameters.Add("@Categoria", SqlDbType.NVarChar).Value = restaurante.Categoria;
                     inserirRestaurante.Parameters.Add("@ContatoId", SqlDbType.Int).Value = InserirContato(restaurante.Contato);
                     inserirRestaurante.Parameters.Add("@LocalizacaoId", SqlDbType.Int).Value = InserirLocalizacao(restaurante.Localizacao);
 
                     connection.Open();
-                    int resultado = inserirRestaurante.ExecuteNonQuery();
                 }
             }
         }
@@ -42,7 +41,7 @@ namespace TurboRango.ImportadorXML
                     inseriLocalizacao.Parameters.Add("@Bairro", SqlDbType.NVarChar).Value = localizacao.Bairro;
                     inseriLocalizacao.Parameters.Add("@Logradouro", SqlDbType.NVarChar).Value = localizacao.Logradouro;
                     inseriLocalizacao.Parameters.Add("@Latitude", SqlDbType.Float).Value = localizacao.Latitude;
-                    inseriLocalizacao.Parameters.Add("@Bairro", SqlDbType.Float).Value = localizacao.Longitude;
+                    inseriLocalizacao.Parameters.Add("@Longitude", SqlDbType.Float).Value = localizacao.Longitude;
 
                     connection.Open();
                     int idCriado = Convert.ToInt32(inseriLocalizacao.ExecuteScalar());

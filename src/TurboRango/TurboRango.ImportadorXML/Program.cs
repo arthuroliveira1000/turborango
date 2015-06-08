@@ -52,17 +52,17 @@ namespace TurboRango.ImportadorXML
             #endregion
 
             #region **********************EXERCÍCIOS
-           
+
             var nomes = restaurantesXML.ObterNomes();
             var capacidadeMedia = restaurantesXML.CapacidadeMedia();
             var capacidadeMaxima = restaurantesXML.CapacidadeMaxima();
             var restaurantesporCategoria = restaurantesXML.AgruparPorCategoria();
-            var categoriaDeRestaurantesPopulares = restaurantesXML.ApenasMaisPopulares(); 
-            var bairrosComMenosPizzarias = restaurantesXML.BairrosComMenosPizzarias(); 
-            var restaurantesAgrupadosPorBairroPercentual = restaurantesXML.AgrupadosPorBairroPercentual(); 
+            var categoriaDeRestaurantesPopulares = restaurantesXML.ApenasMaisPopulares();
+            var bairrosComMenosPizzarias = restaurantesXML.BairrosComMenosPizzarias();
+            var restaurantesAgrupadosPorBairroPercentual = restaurantesXML.AgrupadosPorBairroPercentual();
             var todosRestaurantes = restaurantesXML.TodosRestaurantes();
-           
-           
+
+
 
             var ordenaPorNomeAsc = restaurantesXML.OrdenarPorNomeAsc();
             var sitesDeRestaurantes = restaurantesXML.ObterSites();
@@ -70,7 +70,7 @@ namespace TurboRango.ImportadorXML
 
             #region ADO.NET
 
-            //var connString = @"Data Source=.; Initial Catalog=TurboRango_dev; UID=sa;PWD=feevale"; //Integrated-Security:true
+            //var connString = @"Data Source=.; Initial Catalog=TurboRango_dev; UID=ARTHUR/arthur;PWD="""; //Integrated-Security:true
 
             //var acessoAoBanco = new CarinhaQueManinulaOBanco(connString);
 
@@ -78,10 +78,35 @@ namespace TurboRango.ImportadorXML
 
             #endregion
 
-           //IEnumerable<Contato> contatos = acessoAoBanco.GetContatos();
 
-            var connString = @"Data Source=.\SQLEXPRESS2014; Initial Catalog=TurboRango_dev; Integrated Security=True;";
+            //EXERCÍCIO 1
+            var connString = @"Data Source=.\SQLEXPRESS2014;Initial Catalog=TurboRango_dev;Integrated Security=True;";
             var restaurantes = new Restaurantes(connString);
+
+
+            restaurantes.Inserir(new Restaurante
+            {
+                Nome = "Tiririca",
+                Capacidade = 50,
+                Categoria = Categoria.Fastfood,
+                Contato = new Contato
+                {
+                    Site = "http://github.com/tiririca",
+                    Telefone = "5555 5555"
+                },
+                Localizacao = new Localizacao
+                {
+                    Bairro = "Vila Nova",
+                    Logradouro = "ERS 239, 2755",
+                    Latitude = -29.6646122,
+                    Longitude = -51.1188255
+                }
+            });
+
+            //EXERCÍCIO 2 
+
+
+
         }
     }
 }
