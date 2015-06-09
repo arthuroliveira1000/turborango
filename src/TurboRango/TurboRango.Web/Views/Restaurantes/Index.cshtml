@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<TurboRango.Dominio.Restaurante>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Catálogo de Restaurantes";
 }
 
-<h2>Index</h2>
+<h2>Catálogo de Restaurantes</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Criar novo restaurante", "Create")
 </p>
 <table class="table">
     <tr>
@@ -35,9 +35,9 @@
             @Html.DisplayFor(modelItem => item.Categoria)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Editar", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.id })
         </td>
     </tr>
 }
