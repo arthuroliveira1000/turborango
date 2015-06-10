@@ -15,8 +15,7 @@ html {
 }
 body {
   margin: 0;
-  background-image: url("background.png");
- 
+  
 }
 article,
 aside,
@@ -4860,7 +4859,8 @@ a.badge:focus {
   padding: 30px 15px;
   margin-bottom: 30px;
   color: inherit;
-  background-color: floralwhite;
+  background-color: linen;
+  opacity:0.7;
 }
 .jumbotron h1,
 .jumbotron .h1 {
