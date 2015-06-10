@@ -15,7 +15,8 @@ html {
 }
 body {
   margin: 0;
-   background-image: url("background.png");
+  background-image: url("background.png");
+ 
 }
 article,
 aside,
@@ -1581,7 +1582,6 @@ pre code {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
-  background-color: transparent;
 }
 @media (min-width: 768px) {
   .container {
