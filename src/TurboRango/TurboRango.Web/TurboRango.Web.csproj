@@ -242,10 +242,10 @@
     <Content Include="Views\Restaurantes\Edit.cshtml" />
     <Content Include="Views\Restaurantes\Index.cshtml" />
     <Content Include="Views\Sorteios\Index.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\_Localizacao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
