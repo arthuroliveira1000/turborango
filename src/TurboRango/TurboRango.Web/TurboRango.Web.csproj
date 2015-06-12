@@ -176,13 +176,9 @@
     <Compile Include="Migrations\201506082002267_CriarEntidades.Designer.cs">
       <DependentUpon>201506082002267_CriarEntidades.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506120025303_Criar_tabela_prato.cs" />
-    <Compile Include="Migrations\201506120025303_Criar_tabela_prato.Designer.cs">
-      <DependentUpon>201506120025303_Criar_tabela_prato.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506120623324_Atualizando Banco.cs" />
-    <Compile Include="Migrations\201506120623324_Atualizando Banco.Designer.cs">
-      <DependentUpon>201506120623324_Atualizando Banco.cs</DependentUpon>
+    <Compile Include="Migrations\201506121711518_Pratoes.cs" />
+    <Compile Include="Migrations\201506121711518_Pratoes.Designer.cs">
+      <DependentUpon>201506121711518_Pratoes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -214,12 +210,15 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -287,11 +286,8 @@
     <EmbeddedResource Include="Migrations\201506082002267_CriarEntidades.resx">
       <DependentUpon>201506082002267_CriarEntidades.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506120025303_Criar_tabela_prato.resx">
-      <DependentUpon>201506120025303_Criar_tabela_prato.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506120623324_Atualizando Banco.resx">
-      <DependentUpon>201506120623324_Atualizando Banco.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201506121711518_Pratoes.resx">
+      <DependentUpon>201506121711518_Pratoes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
