@@ -3,9 +3,9 @@
 
 @foreach (var item in Model)
 {
-    <div>
+    <div id="caixaDeRestaurante">
         <div class="row">
-            <div class="col-sm-6 col-md-4">
+            <div class="colunaPersonalizado col-lg-4">
                 <div class="thumbnail">
                     <div class="caption">
                         <h3>@Html.DisplayFor(modelItem => item.Nome)</h3>
@@ -13,7 +13,24 @@
                             @Html.DisplayFor(modelItem => item.Localizacao.Logradouro) - @Html.DisplayFor(modelItem => item.Localizacao.Bairro)
                         </p>
                         <div id="@item.id"></div>
-                        <p> <a onclick="return pratoPrincipal('@item.id');" class=" btn btn-default" role="button">Ver Prato Principal</a></p>
+
+                        @if (@item.Contato != null)
+                        {
+                            if (@item.Contato.Telefone != null)
+                            {
+                                <p> @item.Contato.Telefone</p>
+                            }
+
+                            if (@item.Contato.Site != null)
+                            {
+                                <p> <a href="@Url.Action(@item.Contato.Site)">Visitar Site</a></p>
+                            }
+                        }
+
+                        @if (@item.Prato != null)
+                        {
+                            <p> <a onclick="return pratoPrincipal('@item.id');" class=" btn btn-default" role="button">Ver Prato Principal</a></p>
+                        }
                     </div>
                 </div>
             </div>
