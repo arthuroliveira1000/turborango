@@ -180,6 +180,10 @@
     <Compile Include="Migrations\201506120025303_Criar_tabela_prato.Designer.cs">
       <DependentUpon>201506120025303_Criar_tabela_prato.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506120623324_Atualizando Banco.cs" />
+    <Compile Include="Migrations\201506120623324_Atualizando Banco.Designer.cs">
+      <DependentUpon>201506120623324_Atualizando Banco.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -285,6 +289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506120025303_Criar_tabela_prato.resx">
       <DependentUpon>201506120025303_Criar_tabela_prato.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506120623324_Atualizando Banco.resx">
+      <DependentUpon>201506120623324_Atualizando Banco.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
