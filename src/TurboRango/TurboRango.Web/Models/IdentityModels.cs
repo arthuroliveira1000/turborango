@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using TurboRango.Dominio;
 
 namespace TurboRango.Web.Models
 {
@@ -31,8 +32,10 @@ namespace TurboRango.Web.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<TurboRango.Dominio.Restaurante> Restaurantes { get; set; }
-        public System.Data.Entity.DbSet<TurboRango.Dominio.Contato> Contato { get; set; }
-        public System.Data.Entity.DbSet<TurboRango.Dominio.Localizacao> Localizacao { get; set; }
+        public DbSet<Restaurante> Restaurantes { get; set; }
+        public DbSet<Contato> Contatos { get; set; }
+        public DbSet<Localizacao> Localizacoes { get; set; }
+        public DbSet<Prato> Pratoes { get; set; }
+       
     }
 }

@@ -5538,6 +5538,10 @@ a.list-group-item-danger.active:focus {
 }
 .panel-default {
   border-color: #dddddd;
+  position: fixed;
+  top: 300px;
+  left: 400px;
+  padding: 20px;
 }
 .panel-default > .panel-heading {
   color: #777777;

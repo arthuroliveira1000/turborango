@@ -10,7 +10,7 @@ namespace TurboRango.Web.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "TurboRango.Web.Models.ApplicationDbContext";
         }
 
@@ -34,6 +34,12 @@ namespace TurboRango.Web.Migrations
                         Logradouro = "Rua Sete de Setembro, 1045 - Liberdade",
                         Latitude = -29.712571,
                         Longitude = -51.13636
+                    },
+                    Prato = new Prato
+                    {
+                        Nome = "Alaminuta",
+                        DescricaoIngredientes = "Arroz, feijão, alface, bife de carne ou frango, Batata Frita",
+                        Preco = 5.0m
                     }
                 });
 
@@ -54,7 +60,13 @@ namespace TurboRango.Web.Migrations
                         Logradouro = "Rua: Joaquim Pedro Soares, 633",
                         Latitude = -29.6812707,                  
                         Longitude = -51.1272292
-                    }
+                    },
+                   Prato = new Prato
+                   {
+                       Nome = "Ensopado de Vagem",
+                       DescricaoIngredientes = "Vagem, batata, cenoura e molho",
+                       Preco = 8.5m
+                   }
                 });
 
             context.Restaurantes.AddOrUpdate(
@@ -74,7 +86,14 @@ namespace TurboRango.Web.Migrations
                        Logradouro = "Rua Gomes Portinho, 448",
                        Latitude = -29.682078,
                        Longitude = -51.125199
-                   }
+                   },
+                   Prato = new Prato
+                   {
+                       Nome = "Paleta",
+                       DescricaoIngredientes = "Morango e Leite Condensado",
+                       Preco = 5.0m
+                   },
+                   HorarioRegistro = DateTime.Now
                });
 
             context.Restaurantes.AddOrUpdate(
@@ -95,7 +114,8 @@ namespace TurboRango.Web.Migrations
                       Logradouro = "BR 116, 2554, Km 31",
                       Latitude = -29.693741,
                       Longitude = -51.144554
-                  }
+                  },
+                  HorarioRegistro = DateTime.Now
               });
 
             context.Restaurantes.AddOrUpdate(
@@ -111,7 +131,8 @@ namespace TurboRango.Web.Migrations
                      Logradouro = "Bagé, 149",
                      Latitude = -29.68942,
                      Longitude = -51.125224
-                 }
+                 },
+                 HorarioRegistro = DateTime.Now
              });
 
 
@@ -132,7 +153,8 @@ namespace TurboRango.Web.Migrations
                      Logradouro = "Rua Confraternização, 792",
                      Latitude = -29.698669,
                      Longitude = -51.130195
-                 }
+                 },
+                 HorarioRegistro = DateTime.Now
              });
 
             context.Restaurantes.AddOrUpdate(
@@ -153,11 +175,9 @@ namespace TurboRango.Web.Migrations
                    Logradouro = "Rua Gomes Portinho, 730",
                    Latitude = -29.684873,
                    Longitude = -51.122252
-               }
+               },
+               HorarioRegistro = DateTime.Now
            });
-
-
-            
         }
     }
 }

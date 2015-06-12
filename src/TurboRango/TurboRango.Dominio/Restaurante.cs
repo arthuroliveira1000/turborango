@@ -1,4 +1,5 @@
-﻿namespace TurboRango.Dominio
+﻿using System;
+namespace TurboRango.Dominio
 {
     public class Restaurante : Entidade
     {
@@ -7,5 +8,7 @@
         public Categoria Categoria { get; set; }
         public Contato Contato { get; set; }
         public Localizacao Localizacao { get; set; }
+        public Prato Prato { get; set; }
+        public DateTime? HorarioRegistro { get; set; }
     }
 }

@@ -25,6 +25,10 @@
                     {
                         <li>@Html.ActionLink("Restaurantes", "Index", "Restaurantes")</li>
                     }
+                    else
+                    {
+                        <li> @Html.ActionLink("Restaurantes", "Lista", "Restaurantes")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<TurboRango.Dominio.Restaurante>
+
+
+@foreach (var item in Model)
+{
+    <div>
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3>@Html.DisplayFor(modelItem => item.Nome)</h3>
+                        <p>
+                            @Html.DisplayFor(modelItem => item.Localizacao.Logradouro) - @Html.DisplayFor(modelItem => item.Localizacao.Bairro)
+                        </p>
+                        <div id="@item.id"></div>
+                        <p> <a onclick="return pratoPrincipal('@item.id');" class=" btn btn-default" role="button">Ver Prato Principal</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <td>
+         @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+         @Html.ActionLink("Details", "Details", new { id=item.id }) |
+         @Html.ActionLink("Delete", "Delete", new { id=item.id })
+     </td>-->
+}
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/haversine")
+    <script>
+        function pratoPrincipal(id) {
+            var cont = 0;
+            console.log(id);
+            $.get('@Url.Action("Restaurantes", "Restaurantes")')
+                .done(function (response) {
+                    $("#" + id).html("");
+                    response.restaurantes.forEach(function (restaurante) {
+
+                        if (restaurante.id == id && restaurante.Prato != null) {
+                            cont++;
+                            $("<h3>").text(restaurante.Prato.Nome).appendTo("#" + restaurante.id);
+                            $("<h5>").text(restaurante.Prato.DescricaoIngredientes).appendTo("#" + restaurante.id);
+                            $("<h5>").text("R$ " + restaurante.Prato.Preco).appendTo("#" + restaurante.id);
+                        }
+                    }
+                    )
+                });
+        }
+    </script>
+}

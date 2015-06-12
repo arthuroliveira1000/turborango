@@ -7,10 +7,6 @@ namespace TurboRango.ImportadorXML
     class Restaurantes
     {
 
-        readonly static string DELETE_SQL = "DELETE [dbo].[Restaurante] WHERE [ID_Restaurante] = @Id";
-        readonly static string SELECT_FKS = "SELECT [ID_Contato], [ID_Localizacao] FROM [dbo].[Restaurante] (nolock) WHERE [ID_Localizacao] = @Id";
-
-
         private string connectionString { get; set; }
 
         public Restaurantes(string connectionString)
